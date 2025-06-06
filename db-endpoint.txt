@@ -1,0 +1,1 @@
+lamp-app-db.cijnrr1efnu0.us-east-1.rds.amazonaws.com
