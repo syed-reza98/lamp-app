@@ -672,71 +672,66 @@ $supporting_services = [
                     </p>
                     <div class="architecture-diagram">
                         ┌───────────────────────────────────────────────────────────────────────────────────────────────┐
-                        │ AWS CLOUD INFRASTRUCTURE │
+                        │                                 AWS ELASTIC BEANSTALK ENVIRONMENT                            │
+                        │   (a) Orchestrates all resources, manages deployment, scaling, health, notifications         │
                         └───────────────────────────────────────────────────────────────────────────────────────────────┘
-                        │
-                        ▼
+                                │
+                                ▼
                         ┌──────────────────────────────┐
-                        │ INTERNET USERS │
+                        │        INTERNET USERS        │
                         └─────────────┬───────────────┘
-                        │ HTTP/HTTPS
+                                      │ HTTP/HTTPS
                         ┌─────────────▼───────────────┐
-                        │ INTERNET GATEWAY │
+                        │      INTERNET GATEWAY       │
                         └─────────────┬───────────────┘
-                        │
+                                      │
                         ┌─────────────▼───────────────┐
-                        │ AWS ELASTIC BEANSTALK │ (a)
-                        │ (Orchestrates all below) │
+                        │        LOAD BALANCER        │  (e)
+                        │   Classic ELB, HealthChk    │
                         └─────────────┬───────────────┘
-                        │
-                        ┌─────────────▼───────────────┐
-                        │ LOAD BALANCER │ (e)
-                        │ (Classic ELB, HealthChk) │
-                        └─────────────┬───────────────┘
-                        │
-                        ┌───────────────────────────────────────────────────────────────────────────────┐
-                        │ CUSTOM VPC (h) 10.0.0.0/16 │
-                        │ ┌────────────────────────────┬────────────────────────────┐ │
-                        │ │ PUBLIC SUBNET 1 │ PUBLIC SUBNET 2 │ │
-                        │ │ (us-east-1a) │ (us-east-1b) │ │
-                        │ │ 10.0.1.0/24 │ 10.0.2.0/24 │ │
-                        │ │ ┌───────────────┐ │ ┌───────────────┐ │ │
-                        │ │ │ EC2 (b) │ │ │ EC2 (b) │ │ │
-                        │ │ │ t3.micro │ │ │ t3.micro │ │ │
-                        │ │ │ Custom AMI (c)│ │ │ Custom AMI (c)│ │ │
-                        │ │ │ Sec.Grp (d) │ │ │ Sec.Grp (d) │ │ │
-                        │ │ │ Key Pair (i) │ │ │ Key Pair (i) │ │ │
-                        │ │ └───────┬───────┘ │ └───────┬───────┘ │ │
-                        │ │ │ │ │ │ │
-                        │ └───────────┴─────────────────┴───────────┴─────────────────┘ │
-                        │ │ DB Connection (3306, Sec.Grp) │
-                        │ ▼ │
-                        │ ┌───────────────────────────────┐ │
-                        │ │ RDS MySQL Multi-AZ (g) │ │
-                        │ │ Primary (us-east-1a) │ │
-                        │ │ Standby (us-east-1b) │ │
-                        │ │ Auto Failover, Backups │ │
-                        │ └───────────────────────────────┘ │
-                        │ │
-                        │ ┌───────────────────────────────────────────────────────────────────────┐ │
-                        │ │ AUTO SCALING GROUP (f): 2-8 EC2, NetworkOut 60%/30% triggers │ │
-                        │ └───────────────────────────────────────────────────────────────────────┘ │
-                        │ │
-                        │ ┌───────────────────────────────────────────────────────────────────────┐ │
-                        │ │ SUPPORTING SERVICES: │ │
-                        │ │ - CloudWatch (metrics, scaling alarms) │ │
-                        │ │ - SNS (j) (email notifications) │ │
-                        │ │ - IAM (roles, permissions) │ │
-                        │ │ - Security Groups (d) (HTTP/SSH/DB) │ │
-                        │ └───────────────────────────────────────────────────────────────────────┘ │
-                        └───────────────────────────────────────────────────────────────────────────────┘
+                                      │
+    ┌───────────────────────────────────────────────────────────────────────────────┐
+    │                        CUSTOM VPC (h) 10.0.0.0/16                            │
+    │   ┌────────────────────────────┬────────────────────────────┐                │
+    │   │      PUBLIC SUBNET 1       │      PUBLIC SUBNET 2       │                │
+    │   │      (us-east-1a)          │      (us-east-1b)          │                │
+    │   │      10.0.1.0/24           │      10.0.2.0/24           │                │
+    │   │   ┌───────────────┐         │   ┌───────────────┐         │                │
+    │   │   │   EC2 (b)     │         │   │   EC2 (b)     │         │                │
+    │   │   │ t3.micro      │         │   │ t3.micro      │         │                │
+    │   │   │ Custom AMI (c)│         │   │ Custom AMI (c)│         │                │
+    │   │   │ Sec.Grp (d)   │         │   │ Sec.Grp (d)   │         │                │
+    │   │   │ Key Pair (i)  │         │   │ Key Pair (i)  │         │                │
+    │   │   └───────┬───────┘         │   └───────┬───────┘         │                │
+    │   │           │                 │           │                 │                │
+    │   └───────────┴─────────────────┴───────────┴─────────────────┘                │
+    │                   │ DB Connection (3306, Sec.Grp)                              │
+    │                   ▼                                                            │
+    │         ┌───────────────────────────────┐                                      │
+    │         │   RDS MySQL Multi-AZ (g)     │                                      │
+    │         │  Primary (us-east-1a)        │                                      │
+    │         │  Standby (us-east-1b)        │                                      │
+    │         │  Auto Failover, Backups      │                                      │
+    │         └───────────────────────────────┘                                      │
+    │                                                                               │
+    │   ┌───────────────────────────────────────────────────────────────────────┐    │
+    │   │   AUTO SCALING GROUP (f): 2-8 EC2, NetworkOut 60%/30% triggers        │    │
+    │   └───────────────────────────────────────────────────────────────────────┘    │
+    │                                                                               │
+    │   ┌───────────────────────────────────────────────────────────────────────┐    │
+    │   │   SUPPORTING SERVICES:                                                │    │
+    │   │   - CloudWatch (metrics, scaling alarms)                              │    │
+    │   │   - SNS (j) (email notifications)                                     │    │
+    │   │   - IAM (roles, permissions)                                          │    │
+    │   │   - Security Groups (d) (HTTP/SSH/DB)                                 │    │
+    │   │   - Route 53 (optional DNS)                                           │    │
+    │   └───────────────────────────────────────────────────────────────────────┘    │
+    └───────────────────────────────────────────────────────────────────────────────┘
 
-                        TRAFFIC FLOW: Users → Internet Gateway → Load Balancer → EC2 (Auto Scaling) → RDS
-                        MANDATORY REQUIREMENTS: (a) Elastic Beanstalk, (b) EC2, (c) Custom AMI, (d) Custom SG, (e) Load
-                        Balancer, (f) Auto Scaling, (g) RDS Multi-AZ, (h) Custom VPC, (i) Key Pair, (j) Email
-                        Notifications
-                        SCALABILITY: Auto Scaling Group (2-8), CloudWatch triggers, stateless EC2, managed by Beanstalk
-                        DISASTER RECOVERY: Multi-AZ RDS, health checks, auto failover, notifications via SNS
+    TRAFFIC FLOW: Users → Internet Gateway → Load Balancer → EC2 (Auto Scaling) → RDS
+    MANDATORY REQUIREMENTS: (a) Elastic Beanstalk, (b) EC2, (c) Custom AMI, (d) Custom SG, (e) Load Balancer, (f) Auto Scaling, (g) RDS Multi-AZ, (h) Custom VPC, (i) Key Pair, (j) Email Notifications
+    SCALABILITY: Auto Scaling Group (2-8), CloudWatch triggers, stateless EC2, managed by Beanstalk
+    DISASTER RECOVERY: Multi-AZ RDS, health checks, auto failover, notifications via SNS
                     </div>
 
                     <div class="alert alert-success">
