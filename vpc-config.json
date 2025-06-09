@@ -1,0 +1,77 @@
+[
+    {
+        "Namespace": "aws:ec2:vpc",
+        "OptionName": "VPCId",
+        "Value": "vpc-0164bd99719cccfbd"
+    },
+    {
+        "Namespace": "aws:ec2:vpc",
+        "OptionName": "Subnets",
+        "Value": "subnet-038f2f355ee2000a5,subnet-06f4e63adf671e7ea"
+    },
+    {
+        "Namespace": "aws:autoscaling:launchconfiguration",
+        "OptionName": "IamInstanceProfile",
+        "Value": "aws-elasticbeanstalk-ec2-role"
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "RDS_HOSTNAME",
+        "Value": "lamp-app-db.cijnrr1efnu0.us-east-1.rds.amazonaws.com"
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "RDS_PORT",
+        "Value": "3306"
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "RDS_DB_NAME",
+        "Value": "lampdb"
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "RDS_USERNAME",
+        "Value": "admin"
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "RDS_PASSWORD",
+        "Value": "admin123456"
+    },
+    {
+        "Namespace": "aws:autoscaling:asg",
+        "OptionName": "MinSize",
+        "Value": "2"
+    },
+    {
+        "Namespace": "aws:autoscaling:asg",
+        "OptionName": "MaxSize",
+        "Value": "8"
+    },
+    {
+        "Namespace": "aws:autoscaling:trigger",
+        "OptionName": "MeasureName",
+        "Value": "NetworkOut"
+    },
+    {
+        "Namespace": "aws:autoscaling:trigger",
+        "OptionName": "Statistic",
+        "Value": "Average"
+    },
+    {
+        "Namespace": "aws:autoscaling:trigger",
+        "OptionName": "Unit",
+        "Value": "Bytes"
+    },
+    {
+        "Namespace": "aws:autoscaling:trigger",
+        "OptionName": "UpperThreshold",
+        "Value": "6000000"
+    },
+    {
+        "Namespace": "aws:autoscaling:trigger",
+        "OptionName": "LowerThreshold",
+        "Value": "2000000"
+    }
+]
