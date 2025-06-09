@@ -671,72 +671,106 @@ $supporting_services = [
                         disaster recovery measures.
                     </p>
                     <div class="architecture-diagram">
-                        ┌───────────────────────────────────────────────────────────────────────────────────────────────┐
-                        │ AWS CLOUD INFRASTRUCTURE │
-                        └───────────────────────────────────────────────────────────────────────────────────────────────┘
-                        │
-                        ▼
-                        ┌──────────────────────────────┐
+                        ┌─────────────────────────────────────────────────────────────────────────────────────┐
                         │ INTERNET USERS │
-                        └─────────────┬───────────────┘
-                        │ HTTP/HTTPS
-                        ┌─────────────▼───────────────┐
+                        └──────────────────────────────┬──────────────────────────────────────────────────────┘
+                        │ HTTP/HTTPS Requests
+                        ┌──────────────────────────────▼──────────────────────────────────────────────────────┐
                         │ INTERNET GATEWAY │
-                        └─────────────┬───────────────┘
+                        │ (Public Internet Access) │
+                        └──────────────────────────────┬──────────────────────────────────────────────────────┘
                         │
-                        ┌─────────────▼───────────────┐
-                        │ AWS ELASTIC BEANSTALK │ (a)
-                        │ (Orchestrates all below) │
-                        └─────────────┬───────────────┘
-                        │
-                        ┌─────────────▼───────────────┐
-                        │ LOAD BALANCER │ (e)
-                        │ (Classic ELB, HealthChk) │
-                        └─────────────┬───────────────┘
-                        │
-                        ┌───────────────────────────────────────────────────────────────────────────────┐
-                        │ CUSTOM VPC (h) 10.0.0.0/16 │
-                        │ ┌────────────────────────────┬────────────────────────────┐ │
-                        │ │ PUBLIC SUBNET 1 │ PUBLIC SUBNET 2 │ │
-                        │ │ (us-east-1a) │ (us-east-1b) │ │
-                        │ │ 10.0.1.0/24 │ 10.0.2.0/24 │ │
-                        │ │ ┌───────────────┐ │ ┌───────────────┐ │ │
-                        │ │ │ EC2 (b) │ │ │ EC2 (b) │ │ │
-                        │ │ │ t3.micro │ │ │ t3.micro │ │ │
-                        │ │ │ Custom AMI (c)│ │ │ Custom AMI (c)│ │ │
-                        │ │ │ Sec.Grp (d) │ │ │ Sec.Grp (d) │ │ │
-                        │ │ │ Key Pair (i) │ │ │ Key Pair (i) │ │ │
-                        │ │ └───────┬───────┘ │ └───────┬───────┘ │ │
-                        │ │ │ │ │ │ │
-                        │ └───────────┴─────────────────┴───────────┴─────────────────┘ │
-                        │ │ DB Connection (3306, Sec.Grp) │
-                        │ ▼ │
-                        │ ┌───────────────────────────────┐ │
-                        │ │ RDS MySQL Multi-AZ (g) │ │
-                        │ │ Primary (us-east-1a) │ │
-                        │ │ Standby (us-east-1b) │ │
-                        │ │ Auto Failover, Backups │ │
-                        │ └───────────────────────────────┘ │
+                        ┌─────────────────────────────────────────────────────────────────────────────────────┐
+                        │ AWS ELASTIC BEANSTALK ENVIRONMENT (lamp-prod-vpc) │
+                        │ ┌─────────────────────────────┼─────────────────────────────────────────────────┐ │
+                        │ │ CUSTOM VPC (vpc-0164bd99719cccfbd) │ │
+                        │ │ Network: 10.0.0.0/16 │ │
+                        │ │ │ │
+                        │ │ ┌───────────────────────▼───────────────────────┐ │ │
+                        │ │ │ CLASSIC LOAD BALANCER │ │ │
+                        │ │ │ (awseb-e-r-AWSEBLoa-ID4G50DGRVZZ) │ │ │
+                        │ │ │ • Health Checks (HTTP:80/health.php) │ │ │
+                        │ │ │ • Traffic Distribution Across AZs │ │ │
+                        │ │ │ • Security Group: HTTP/HTTPS Access │ │ │
+                        │ │ └───────────────┬───────────────┬───────────────┘ │ │
+                        │ │ │ │ │ │
+                        │ │ ┌─────────────────────────┐ ┌─────────────────────────┐ │ │
+                        │ │ │ PUBLIC SUBNET 1 │ │ PUBLIC SUBNET 2 │ │ │
+                        │ │ │ (us-east-1a) │ │ (us-east-1b) │ │ │
+                        │ │ │ 10.0.1.0/24 │ │ 10.0.2.0/24 │ │ │
+                        │ │ │ │ │ │ │ │
+                        │ │ │ ┌─────────────────────┐ │ │ ┌─────────────────────┐ │ │ │
+                        │ │ │ │ EC2 INSTANCE │ │ │ │ EC2 INSTANCE │ │ │ │
+                        │ │ │ │ (t3.micro) │ │ │ │ (t3.micro) │ │ │ │
+                        │ │ │ │ • Custom AMI │ │ │ │ • Custom AMI │ │ │ │
+                        │ │ │ │ • Apache + PHP 8.1 │ │ │ │ • Apache + PHP 8.1 │ │ │ │
+                        │ │ │ │ • Custom Key Pair │ │ │ │ • Custom Key Pair │ │ │ │
+                        │ │ │ │ • Security Groups │ │ │ │ • Security Groups │ │ │ │
+                        │ │ │ │ (HTTP/SSH Access) │ │ │ │ (HTTP/SSH Access) │ │ │ │
+                        │ │ │ └─────────────────────┘ │ │ └─────────────────────┘ │ │ │
+                        │ │ │ │ │ │ │ │ │ │
+                        │ │ └───────────┼─────────────┘ └───────────┼─────────────┘ │ │
+                        │ │ │ │ │ │
+                        │ │ └─────────────┬─────────────┘ │ │
+                        │ │ │ Database Connections │ │
+                        │ │ │ (Port 3306) │ │
+                        │ │ ┌─────────────▼─────────────┐ │ │
+                        │ │ │ AMAZON RDS MULTI-AZ │ │ │
+                        │ │ │ (lamp-app-db.cijnrr...)│ │ │
+                        │ │ │ ┌─────────────┬─────────────┐ │ │
+                        │ │ │ │ PRIMARY DB │ STANDBY DB │ │ │
+                        │ │ │ │(us-east-1a) │(us-east-1b) │ │ │
+                        │ │ │ │MySQL 8.0.41 │MySQL 8.0.41 │ │ │
+                        │ │ │ │ ◄─ Sync Replication ─► │ │ │
+                        │ │ │ │Auto Failover│Auto Failover│ │ │
+                        │ │ │ └─────────────┴─────────────┘ │ │
+                        │ │ └───────────────────────────────┘ │ │
+                        │ └─────────────────────────────────────────────────────────────────────────────────┘ │
                         │ │
-                        │ ┌───────────────────────────────────────────────────────────────────────┐ │
-                        │ │ AUTO SCALING GROUP (f): 2-8 EC2, NetworkOut 60%/30% triggers │ │
-                        │ └───────────────────────────────────────────────────────────────────────┘ │
+                        │ ┌─────────────────────────────────────────────────────────────────────────────────┐ │
+                        │ │ AUTO SCALING GROUP │ │
+                        │ │ (awseb-e-rpyapuixkj-stack) │ │
+                        │ │ • Min Instances: 2 │ Max Instances: 8 │ Current: 2 │ │
+                        │ │ • Scaling Metric: Network Output Traffic │ │
+                        │ │ • Upper Threshold: 60% (6MB) │ Lower Threshold: 30% (2MB) │ │
+                        │ │ • Manages EC2 instances across multiple AZs │ │
+                        │ └─────────────────────────────────────────────────────────────────────────────────┘ │
                         │ │
-                        │ ┌───────────────────────────────────────────────────────────────────────┐ │
-                        │ │ SUPPORTING SERVICES: │ │
-                        │ │ - CloudWatch (metrics, scaling alarms) │ │
-                        │ │ - SNS (j) (email notifications) │ │
-                        │ │ - IAM (roles, permissions) │ │
-                        │ │ - Security Groups (d) (HTTP/SSH/DB) │ │
-                        │ └───────────────────────────────────────────────────────────────────────┘ │
-                        └───────────────────────────────────────────────────────────────────────────────┘
+                        │ ┌─────────────────────────────────────────────────────────────────────────────────┐ │
+                        │ │ SUPPORTING SERVICES │ │
+                        │ │ │ │
+                        │ │ ┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐ ┌─────────────────┐ │ │
+                        │ │ │ CLOUDWATCH │ │ SNS │ │ IAM │ │ SECURITY GROUPS │ │ │
+                        │ │ │ • Monitoring │ │ • Email Alerts │ │ • Roles & Perms │ │ • HTTP (Port 80)│ │ │
+                        │ │ │ • Metrics │ │ • Scaling Events│ │ • Service Access│ │ • SSH (Port 22) │ │ │
+                        │ │ │ • Auto Scaling │ │ • Health Alerts │ │ • EC2 Profiles │ │ • MySQL (3306) │ │ │
+                        │ │ │ Triggers │ │ • Notifications │ │ • Cross-Service │ │ • Applied to All│ │ │
+                        │ │ └─────────────────┘ └─────────────────┘ └─────────────────┘ └─────────────────┘ │ │
+                        │ └─────────────────────────────────────────────────────────────────────────────────┘ │
+                        └─────────────────────────────────────────────────────────────────────────────────────┘
 
-                        TRAFFIC FLOW: Users → Internet Gateway → Load Balancer → EC2 (Auto Scaling) → RDS
-                        MANDATORY REQUIREMENTS: (a) Elastic Beanstalk, (b) EC2, (c) Custom AMI, (d) Custom SG, (e) Load
-                        Balancer, (f) Auto Scaling, (g) RDS Multi-AZ, (h) Custom VPC, (i) Key Pair, (j) Email
-                        Notifications
-                        SCALABILITY: Auto Scaling Group (2-8), CloudWatch triggers, stateless EC2, managed by Beanstalk
-                        DISASTER RECOVERY: Multi-AZ RDS, health checks, auto failover, notifications via SNS
+                        TRAFFIC FLOW:
+                        Users → Internet Gateway → Load Balancer → EC2 Instances → RDS Database
+
+                        MANDATORY REQUIREMENTS IMPLEMENTED:
+                        ✓ (a) AWS Elastic Beanstalk - Orchestrates entire environment
+                        ✓ (b) Amazon EC2 - t3.micro instances with LAMP stack
+                        ✓ (c) Custom AMI - Amazon Linux 2 with pre-configured LAMP
+                        ✓ (d) Custom Security Groups - HTTP/SSH access, same SG all instances
+                        ✓ (e) Load Balancer - Classic ELB with health checks
+                        ✓ (f) Auto Scaling - 2-8 instances, network traffic triggers (60%/30%)
+                        ✓ (g) RDS Multi-AZ - MySQL with automatic failover
+                        ✓ (h) Custom VPC - 2 public subnets in different AZs
+                        ✓ (i) Custom Key Pairs - Same SSH key across all instances
+                        ✓ (j) Email Notifications - SNS alerts for environment events
+
+                        SCALABILITY & DISASTER RECOVERY:
+                        • Horizontal scaling: Auto Scaling Group manages 2-8 instances
+                        • Network-based triggers: Scale up at 60%, scale down at 30%
+                        • Multi-AZ deployment: Resources distributed across us-east-1a and us-east-1b
+                        • Database failover: RDS Multi-AZ with automatic failover capability
+                        • Load distribution: Classic Load Balancer with health checks
+                        • Monitoring: CloudWatch metrics and SNS notifications
                     </div>
 
                     <div class="alert alert-success">
@@ -874,8 +908,7 @@ $supporting_services = [
                     </p>
 
                     <div class="config-grid">
-                        <?php if (!empty($supporting_services)) {
-                        foreach ($supporting_services as $service): ?>
+                        <?php foreach ($supporting_services as $service): ?>
                         <div class="config-item">
                             <div class="config-label"><?php echo htmlspecialchars($service['name']); ?></div>
                             <div class="config-value">
@@ -883,8 +916,7 @@ $supporting_services = [
                                 <strong>Integration:</strong> <?php echo htmlspecialchars($service['integration']); ?>
                             </div>
                         </div>
-                        <?php endforeach;
-                    } ?>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
