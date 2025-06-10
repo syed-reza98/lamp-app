@@ -1,0 +1,1231 @@
+/**
+ * Fresh CSS Styles for AWS LAMP Stack Architecture Report
+ * Assignment 3 - Comprehensive Implementation Report
+ * 
+ * Student: Anika Arman
+ * Student ID: 14425754
+ * 
+ * Modern, responsive design with AWS color scheme and professional layout
+ */
+
+/* ========================================
+   CSS CUSTOM PROPERTIES & VARIABLES
+   ======================================== */
+:root {
+    /* AWS Brand Colors */
+    --aws-orange: #FF9900;
+    --aws-blue: #146EB4;
+    --aws-dark-blue: #0F2027;
+    --aws-light-blue: #5294CF;
+    --aws-gray: #F2F3F3;
+    
+    /* Status Colors */
+    --status-healthy: #28a745;
+    --status-warning: #ffc107;
+    --status-error: #dc3545;
+    --status-info: #17a2b8;
+    
+    /* Semantic Colors */
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --accent-color: #e74c3c;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    
+    /* Background Colors */
+    --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --bg-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --bg-white: #ffffff;
+    --bg-light: #f8f9fa;
+    --bg-dark: #343a40;
+    --bg-card: rgba(255, 255, 255, 0.95);
+    --bg-overlay: rgba(0, 0, 0, 0.1);
+    
+    /* Text Colors */
+    --text-primary: #2c3e50;
+    --text-secondary: #7f8c8d;
+    --text-muted: #95a5a6;
+    --text-light: #ecf0f1;
+    --text-white: #ffffff;
+    
+    /* Spacing System */
+    --spacing-xs: 0.25rem;    /* 4px */
+    --spacing-sm: 0.5rem;     /* 8px */
+    --spacing-md: 1rem;       /* 16px */
+    --spacing-lg: 1.5rem;     /* 24px */
+    --spacing-xl: 2rem;       /* 32px */
+    --spacing-xxl: 3rem;      /* 48px */
+    --spacing-xxxl: 4rem;     /* 64px */
+    
+    /* Border Radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    --radius-round: 50%;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    
+    /* Typography */
+    --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-family-mono: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    
+    /* Font Sizes */
+    --font-xs: 0.75rem;    /* 12px */
+    --font-sm: 0.875rem;   /* 14px */
+    --font-base: 1rem;     /* 16px */
+    --font-lg: 1.125rem;   /* 18px */
+    --font-xl: 1.25rem;    /* 20px */
+    --font-2xl: 1.5rem;    /* 24px */
+    --font-3xl: 1.875rem;  /* 30px */
+    --font-4xl: 2.25rem;   /* 36px */
+    --font-5xl: 3rem;      /* 48px */
+    
+    /* Line Heights */
+    --leading-none: 1;
+    --leading-tight: 1.25;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.75;
+    --leading-loose: 2;
+    
+    /* Container Widths */
+    --container-sm: 640px;
+    --container-md: 768px;
+    --container-lg: 1024px;
+    --container-xl: 1280px;
+    --container-2xl: 1536px;
+}
+
+/* ========================================
+   RESET & BASE STYLES
+   ======================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%; /* Safari, iOS, legacy Chrome/Android */
+    text-size-adjust: 100%; /* Chrome, Edge, Samsung Internet (ignored by Firefox/Safari) */
+}
+
+body {
+    font-family: var(--font-family-sans);
+    font-size: var(--font-base);
+    line-height: var(--leading-normal);
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* ========================================
+   LAYOUT COMPONENTS
+   ======================================== */
+.container {
+    width: 100%;
+    max-width: var(--container-xl);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+@media (min-width: 640px) {
+    .container {
+        padding: 0 var(--spacing-lg);
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        padding: 0 var(--spacing-xl);
+    }
+}
+
+/* ========================================
+   HEADER SECTION
+   ======================================== */
+.header {
+    background: linear-gradient(135deg, var(--aws-dark-blue) 0%, var(--aws-blue) 100%);
+    color: var(--text-white);
+    padding: var(--spacing-xxl) 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    pointer-events: none;
+}
+
+.header-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: clamp(var(--font-3xl), 5vw, var(--font-5xl));
+    font-weight: 700;
+    margin-bottom: var(--spacing-lg);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xl);
+    font-size: var(--font-sm);
+}
+
+@media (min-width: 768px) {
+    .header-meta {
+        flex-direction: row;
+        justify-content: center;
+        gap: var(--spacing-lg);
+    }
+}
+
+.student-info,
+.timestamp {
+    background: rgba(255, 255, 255, 0.1);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.header-description {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: var(--font-lg);
+    line-height: var(--leading-relaxed);
+    opacity: 0.9;
+}
+
+/* ========================================
+   COMMON SECTION STYLES
+   ======================================== */
+.dashboard,
+.requirements-section,
+.benefits-section,
+.database-section,
+.performance-section,
+.architecture-section,
+.technical-section,
+.health-status-section {
+    padding: var(--spacing-xxl) 0;
+}
+
+.dashboard,
+.performance-section,
+.technical-section,
+.health-status-section {
+    background: var(--bg-light);
+}
+
+.requirements-section,
+.database-section,
+.architecture-section {
+    background: var(--bg-white);
+}
+
+.benefits-section {
+    background: var(--bg-light);
+}
+
+/* Common header styles for sections */
+.dashboard h2,
+.requirements-section h2,
+.benefits-section h2,
+.database-section h2,
+.performance-section h2,
+.architecture-section h2,
+.technical-section h2,
+.health-status-section h2 {
+    text-align: center;
+    font-size: var(--font-3xl);
+    margin-bottom: var(--spacing-xl);
+    color: var(--text-primary);
+}
+
+.architecture-section h2 {
+    margin-bottom: var(--spacing-md);
+}
+
+/* ========================================
+   COMMON GRID LAYOUTS
+   ======================================== */
+.status-grid,
+.requirements-grid,
+.benefits-grid,
+.database-grid,
+.metrics-grid,
+.tech-grid,
+.health-grid {
+    display: grid;
+    gap: var(--spacing-lg);
+}
+
+.status-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.requirements-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+.benefits-grid,
+.database-grid {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+.metrics-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.tech-grid {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+.health-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    margin-bottom: var(--spacing-xl);
+}
+
+/* ========================================
+   COMMON CARD STYLES
+   ======================================== */
+.status-card,
+.requirement-card,
+.benefit-card,
+.database-info-card,
+.database-performance-card,
+.metric-card,
+.tech-card,
+.health-card,
+.instance-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+}
+
+.status-card,
+.requirement-card,
+.benefit-card,
+.metric-card,
+.health-card {
+    border-left: 4px solid var(--primary-color);
+}
+
+.status-card:hover,
+.requirement-card:hover,
+.benefit-card:hover,
+.metric-card:hover,
+.health-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.tech-card {
+    border-left: 4px solid var(--aws-orange);
+}
+
+.instance-card {
+    background: var(--bg-light);
+    border: 1px solid var(--aws-gray);
+    padding: var(--spacing-lg);
+}
+
+.instance-card:hover {
+    background: var(--bg-white);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.status-card.status-healthy {
+    border-left-color: var(--status-healthy);
+}
+
+.status-card.status-warning {
+    border-left-color: var(--status-warning);
+}
+
+.status-card.status-error {
+    border-left-color: var(--status-error);
+}
+
+.status-icon {
+    font-size: var(--font-3xl);
+    min-width: 50px;
+}
+
+.status-content h3 {
+    font-size: var(--font-lg);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.status-value {
+    font-size: var(--font-xl);
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-xs);
+}
+
+.status-content small {
+    color: var(--text-secondary);
+    font-size: var(--font-sm);
+}
+
+/* ========================================
+   REQUIREMENTS SECTION
+   ======================================== */
+
+.section-description {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--spacing-xl);
+    font-size: var(--font-lg);
+    color: var(--text-secondary);
+    line-height: var(--leading-relaxed);
+}
+
+
+
+
+
+.requirement-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.requirement-letter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: var(--aws-orange);
+    color: var(--text-white);
+    font-size: var(--font-xl);
+    font-weight: 700;
+    border-radius: var(--radius-round);
+}
+
+.requirement-title {
+    flex: 1;
+}
+
+.requirement-title h3 {
+    font-size: var(--font-xl);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.status-badge {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-implemented {
+    background: rgba(40, 167, 69, 0.1);
+    color: var(--status-healthy);
+}
+
+.requirement-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-item strong {
+    color: var(--text-primary);
+    font-weight: 600;
+    min-width: 120px;
+}
+
+.detail-item span {
+    color: var(--text-secondary);
+    text-align: right;
+    flex: 1;
+    margin-left: var(--spacing-sm);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-sm);
+}
+
+/* ========================================
+   BENEFITS SECTION
+   ======================================== */
+
+
+
+
+
+.benefit-card:nth-child(even) {
+    border-left-color: var(--aws-orange);
+}
+
+.benefit-header h3 {
+    font-size: var(--font-xl);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-lg);
+}
+
+.benefit-description {
+    font-size: var(--font-base);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-lg);
+    line-height: var(--leading-relaxed);
+}
+
+.benefit-implementation,
+.benefit-result {
+    margin-bottom: var(--spacing-md);
+}
+
+.benefit-implementation strong,
+.benefit-result strong {
+    display: block;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+}
+
+.benefit-implementation p,
+.benefit-result p {
+    color: var(--text-secondary);
+    line-height: var(--leading-relaxed);
+    font-size: var(--font-sm);
+}
+
+/* ========================================
+   DATABASE SECTION
+   ======================================== */
+
+
+
+
+
+.database-info-card h3,
+.database-performance-card h3 {
+    font-size: var(--font-xl);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--aws-orange);
+    padding-bottom: var(--spacing-sm);
+}
+
+.info-grid,
+.performance-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.info-item,
+.metric-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.info-item:last-child,
+.metric-item:last-child {
+    border-bottom: none;
+}
+
+.info-item strong,
+.metric-item strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.info-item span,
+.metric-item span {
+    color: var(--text-secondary);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-sm);
+}
+
+/* ========================================
+   PERFORMANCE METRICS SECTION
+   ======================================== */
+
+
+
+
+
+.metric-icon {
+    font-size: var(--font-4xl);
+    margin-bottom: var(--spacing-md);
+}
+
+.metric-content h3 {
+    font-size: var(--font-lg);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.metric-value {
+    font-size: var(--font-2xl);
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+    font-family: var(--font-family-mono);
+}
+
+.metric-content small {
+    color: var(--text-secondary);
+    font-size: var(--font-sm);
+}
+
+/* ========================================
+   ARCHITECTURE DIAGRAM SECTION
+   ======================================== */
+
+.architecture-diagram {
+    background: var(--bg-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-md);
+    overflow-x: auto;
+}
+
+.diagram-container {
+    min-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+.layer {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    align-items: center;
+}
+
+.service-box {
+    background: var(--bg-white);
+    border: 2px solid var(--primary-color);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    text-align: center;
+    min-width: 150px;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+}
+
+.service-box:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.service-box h4 {
+    font-size: var(--font-lg);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.service-box p {
+    color: var(--text-secondary);
+    font-size: var(--font-sm);
+    margin-bottom: var(--spacing-xs);
+}
+
+.service-box small {
+    color: var(--text-muted);
+    font-size: var(--font-xs);
+}
+
+.vpc-container {
+    background: rgba(70, 130, 180, 0.1);
+    border: 2px dashed var(--aws-blue);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    margin: var(--spacing-lg) 0;
+}
+
+.vpc-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.vpc-header h3 {
+    font-size: var(--font-2xl);
+    color: var(--aws-blue);
+    margin-bottom: var(--spacing-sm);
+}
+
+.requirement-tag {
+    background: var(--aws-orange);
+    color: var(--text-white);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-xs);
+    font-weight: 600;
+}
+
+.az-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xl);
+}
+
+.availability-zone {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--aws-light-blue);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+}
+
+.az-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.az-header h4 {
+    color: var(--aws-blue);
+    font-size: var(--font-lg);
+}
+
+.subnet {
+    background: rgba(34, 139, 34, 0.1);
+    border: 1px solid #228b22;
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.subnet-header {
+    font-weight: 600;
+    color: #228b22;
+    margin-bottom: var(--spacing-xs);
+}
+
+.subnet-cidr {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-sm);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.ec2-instance {
+    background: var(--bg-white);
+    border: 1px solid var(--primary-color);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-sm);
+    text-align: center;
+}
+
+.instance-header {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-xs);
+}
+
+.instance-details div {
+    font-size: var(--font-xs);
+    color: var(--text-secondary);
+}
+
+.rds-primary,
+.rds-standby {
+    background: rgba(255, 140, 0, 0.1);
+    border: 1px solid #ff8c00;
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-sm);
+    text-align: center;
+    margin-top: var(--spacing-md);
+}
+
+.rds-primary h5,
+.rds-standby h5 {
+    color: #ff8c00;
+    margin-bottom: var(--spacing-xs);
+}
+
+.auto-scaling-section {
+    text-align: center;
+    margin-top: var(--spacing-xl);
+}
+
+.supporting-services {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+}
+
+.support-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.support-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.support-service {
+    background: var(--bg-white);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-md);
+    text-align: center;
+    border-left: 3px solid var(--primary-color);
+}
+
+.support-service.cloudwatch {
+    border-left-color: #ff9500;
+}
+
+.support-service.sns {
+    border-left-color: #e74c3c;
+}
+
+.support-service.iam {
+    border-left-color: #f39c12;
+}
+
+.support-service.beanstalk {
+    border-left-color: #27ae60;
+}
+
+.support-service h5 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.support-service p {
+    color: var(--text-secondary);
+    font-size: var(--font-xs);
+}
+
+/* ========================================
+   TECHNICAL SPECIFICATIONS SECTION
+   ======================================== */
+
+
+
+
+
+.tech-card h3 {
+    font-size: var(--font-xl);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--aws-orange);
+    padding-bottom: var(--spacing-sm);
+}
+
+.tech-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.tech-item {
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.tech-item:last-child {
+    border-bottom: none;
+}
+
+.tech-item strong {
+    color: var(--text-primary);
+    font-weight: 600;
+    display: block;
+    margin-bottom: var(--spacing-xs);
+}
+
+/* ========================================
+   FOOTER SECTION
+   ======================================== */
+.footer {
+    background: var(--secondary-color);
+    color: var(--text-light);
+    padding: var(--spacing-xxl) 0;
+}
+
+.footer-content {
+    display: grid;
+    gap: var(--spacing-lg);
+    grid-template-columns: 1fr;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .footer-content {
+        grid-template-columns: 2fr 1fr;
+        text-align: left;
+    }
+}
+
+.footer-info h3 {
+    font-size: var(--font-xl);
+    margin-bottom: var(--spacing-md);
+    color: var(--aws-orange);
+}
+
+.footer-info p {
+    line-height: var(--leading-relaxed);
+    opacity: 0.9;
+}
+
+.footer-stats {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    align-self: center;
+}
+
+@media (max-width: 767px) {
+    .footer-stats {
+        align-self: stretch;
+    }
+}
+
+.stat {
+    background: rgba(255, 255, 255, 0.1);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-sm);
+    font-family: var(--font-family-mono);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 768px) {
+    :root {
+        --spacing-xxl: 2rem;
+        --spacing-xxxl: 2.5rem;
+    }
+    
+    .requirements-grid,
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .az-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .requirement-header {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-md);
+    }
+    
+    .detail-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+    }
+    
+    .detail-item span {
+        text-align: left;
+        margin-left: 0;
+    }
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.font-mono { font-family: var(--font-family-mono); }
+
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+
+.bg-primary { background-color: var(--primary-color); }
+.bg-success { background-color: var(--success-color); }
+.bg-warning { background-color: var(--warning-color); }
+.bg-error { background-color: var(--accent-color); }
+
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: var(--spacing-xs); }
+.mb-2 { margin-bottom: var(--spacing-sm); }
+.mb-3 { margin-bottom: var(--spacing-md); }
+.mb-4 { margin-bottom: var(--spacing-lg); }
+
+.p-0 { padding: 0; }
+.p-1 { padding: var(--spacing-xs); }
+.p-2 { padding: var(--spacing-sm); }
+.p-3 { padding: var(--spacing-md); }
+.p-4 { padding: var(--spacing-lg); }
+
+/* ========================================
+   ANIMATIONS & EFFECTS
+   ======================================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   HEALTH STATUS DASHBOARD STYLES
+   ======================================== */
+.health-status-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+
+
+
+
+.health-icon {
+    font-size: var(--font-3xl);
+    min-width: 60px;
+    text-align: center;
+}
+
+.health-content h3 {
+    margin: 0 0 var(--spacing-xs) 0;
+    color: var(--text-primary);
+    font-size: var(--font-lg);
+    font-weight: 600;
+}
+
+.status-value {
+    font-size: var(--font-xl);
+    font-weight: 700;
+    margin: var(--spacing-xs) 0;
+}
+
+.status-value.green {
+    color: var(--status-healthy);
+}
+
+.health-content small {
+    color: var(--text-secondary);
+    font-size: var(--font-sm);
+}
+
+.instance-details {
+    margin-top: var(--spacing-xl);
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-md);
+}
+
+.instance-details h3 {
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--aws-orange);
+}
+
+.instance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+
+
+.instance-card h4 {
+    color: var(--aws-blue);
+    margin: 0 0 var(--spacing-md) 0;
+    font-size: var(--font-lg);
+    font-weight: 600;
+    font-family: var(--font-family-mono);
+}
+
+.instance-card p {
+    margin: var(--spacing-xs) 0;
+    color: var(--text-primary);
+    font-size: var(--font-sm);
+}
+
+.instance-card strong {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.status-green {
+    color: var(--status-healthy);
+    font-weight: 600;
+}
+
+/* Specific layout styles for cards that need flex display */
+.status-card,
+.health-card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+.metric-card {
+    text-align: center;
+}
+
+/* Status card variants */
+.health-card.system-health {
+    border-left-color: var(--status-healthy);
+}
+
+.health-card.instance-health {
+    border-left-color: var(--aws-blue);
+}
+
+.health-card.database-health {
+    border-left-color: var(--aws-orange);
+}
+
+.health-card.scaling-status {
+    border-left-color: var(--status-info);
+}
+
+.health-card.network-status {
+    border-left-color: var(--primary-color);
+}
+
+.health-card.deployment-status {
+    border-left-color: var(--success-color);
+}
+
+/* Responsive adjustments for health dashboard */
+@media (max-width: 768px) {
+    .health-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+    
+    .health-card {
+        padding: var(--spacing-md);
+    }
+    
+    .instance-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .instance-details {
+        padding: var(--spacing-lg);
+    }
+}
+
+/* ========================================
+   END HEALTH STATUS DASHBOARD STYLES
+   ======================================== */
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.6s ease forwards;
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.animate-pulse {
+    animation: pulse 2s infinite;
+}
+
+/* Focus and accessibility improvements */
+*:focus {
+    outline: 2px solid var(--aws-orange);
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    .header {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .status-card,
+    .requirement-card,
+    .benefit-card {
+        break-inside: avoid;
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+    }
+    
+    .footer {
+        background: white !important;
+        color: black !important;
+    }
+}
+
+.requirement-card {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.health-card {
+    padding: var(--spacing-lg);
+    gap: var(--spacing-md);
+    border-left-color: var(--status-healthy);
+}
+
+.health-card:hover {
+    transform: translateY(-2px);
+}

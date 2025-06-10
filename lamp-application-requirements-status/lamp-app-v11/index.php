@@ -12,7 +12,7 @@
 
 // Redirect to the main comprehensive report
 if (!isset($_GET['legacy'])) {
-    header('Location: lamp_report.php');
+    header('Location: formal_report.php');
     exit();
 }
 
@@ -65,10 +65,8 @@ try {
         PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"
     ]);
 
-    $db_connected = true;
-
-    // Get database version and info
-    $stmt = $pdo->query("SELECT VERSION() as version, DATABASE() as db_name, USER() as user, CURRENT_TIMESTAMP() as current_time");
+    $db_connected = true;    // Get database version and info
+    $stmt = $pdo->query("SELECT VERSION() as version, DATABASE() as db_name, USER() as user, CURRENT_TIMESTAMP as server_time");
     $db_info = $stmt->fetch();
 
     // Create a test table if it doesn't exist
@@ -280,11 +278,11 @@ $additional_services = [
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assignment 3 - LAMP Stack Requirements Status</title>
-    <style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Assignment 3 - LAMP Stack Requirements Status</title>
+        <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -442,144 +440,144 @@ $additional_services = [
             font-weight: bold;
             margin-bottom: 5px;
         }
-    </style>
-</head>
+        </style>
+    </head>
 
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>🎯 Assignment 3 - Requirements Status</h1>
-            <p>LAMP Stack on AWS - Scalable, Elastic, High-Availability Architecture</p>
-            <p><strong>Environment:</strong> lamp-prod-vpc | <strong>Instance:</strong> <?php echo $instance_id; ?>
-            </p>
-        </div>
-
-        <!-- Navigation Section -->
-        <div
-            style="background: rgba(255,255,255,0.95); padding: 20px; border-radius: 10px; margin-bottom: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-            <h3 style="margin-top: 0; color: #2c3e50;">📋 Assignment 3 Resources</h3>
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 15px;">
-                <a href="assign_3_report.php"
-                    style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 8px; font-weight: bold; transition: background 0.3s ease;">
-                    📄 Full Architecture Report
-                </a>
-                <a href="architecture_diagram.php"
-                    style="background: #27ae60; color: white; padding: 12px 20px; text-decoration: none; border-radius: 8px; font-weight: bold; transition: background 0.3s ease;">
-                    🏗️ Enhanced Architecture Diagram
-                </a>
-                <a href="health.php"
-                    style="background: #e74c3c; color: white; padding: 12px 20px; text-decoration: none; border-radius: 8px; font-weight: bold; transition: background 0.3s ease;">
-                    ❤️ Health Check
-                </a>
-                <a href="phpinfo.php"
-                    style="background: #f39c12; color: white; padding: 12px 20px; text-decoration: none; border-radius: 8px; font-weight: bold; transition: background 0.3s ease;">
-                    🔍 PHP Info
-                </a>
-            </div>
-            <p style="margin-top: 15px; color: #7f8c8d; font-size: 14px;">
-                <strong>Student:</strong> Anika Arman (14425754) | <strong>Subject:</strong> 32555 Cloud Computing
-                and SaaS
-            </p>
-        </div>
-
-        <div class="content">
-            <!-- Summary Statistics -->
-            <div class="summary-stats">
-                <div class="stat-card">
-                    <div class="stat-number">10/10</div>
-                    <div>Requirements Met</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">100%</div>
-                    <div>Implementation Complete</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">15</div>
-                    <div>AWS Services Used</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">35</div>
-                    <div>Total Marks Available</div>
-                </div>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>🎯 Assignment 3 - Requirements Status</h1>
+                <p>LAMP Stack on AWS - Scalable, Elastic, High-Availability Architecture</p>
+                <p><strong>Environment:</strong> lamp-prod-vpc | <strong>Instance:</strong> <?php echo $instance_id; ?>
+                </p>
             </div>
 
-            <!-- Assignment Requirements Mapping -->
+            <!-- Navigation Section -->
             <div
-                style="background: linear-gradient(45deg, #007bff, #0056b3); color: white; padding: 25px; border-radius: 8px; margin: 25px 0;">
-                <h2 style="margin-top: 0; text-align: center;">📋 Assignment 3 - Mandatory Requirements Mapping</h2>
-                <div
-                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; margin-top: 20px;">
-                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
-                        <h4>(a) AWS Elastic Beanstalk ✅</h4>
-                        <p><strong>Environment:</strong> lamp-prod-vpc<br><strong>ID:</strong> e-rpyapuixkj</p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
-                        <h4>(b) Amazon EC2 ✅</h4>
-                        <p><strong>Instances:</strong> 2 running (t3.micro)<br><strong>AZs:</strong> us-east-1a,
-                            us-east-1b</p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
-                        <h4>(c) Custom AMI ✅</h4>
-                        <p><strong>Base:</strong> Amazon Linux 2 + PHP 8.1<br><strong>Platform:</strong> 3.9.2</p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
-                        <h4>(d) Custom Security Groups ✅</h4>
-                        <p><strong>HTTP/SSH:</strong> sg-041d4877e9ea0c1ae<br><strong>All instances:</strong> Same
-                            group</p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
-                        <h4>(e) Load Balancer ✅</h4>
-                        <p><strong>ELB:</strong> awseb-e-r-AWSEBLoa-ID4G50DGRVZZ<br><strong>Type:</strong> Classic
-                            Load Balancer</p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
-                        <h4>(f) Auto Scaling (2-8, Network) ✅</h4>
-                        <p><strong>Min/Max:</strong> 2-8 instances<br><strong>Triggers:</strong> Network Traffic
-                            (60%/30%)</p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
-                        <h4>(g) RDS Multi-AZ ✅</h4>
-                        <p><strong>DB:</strong> lamp-app-db (MySQL 8.0)<br><strong>Multi-AZ:</strong> us-east-1a/1b
-                        </p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
-                        <h4>(h) Custom VPC (2+ subnets) ✅</h4>
-                        <p><strong>VPC:</strong> vpc-0164bd99719cccfbd<br><strong>Public Subnets:</strong> 2 in
-                            different AZs</p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
-                        <h4>(i) Custom Key Pairs ✅</h4>
-                        <p><strong>Key:</strong> lamp-app-key<br><strong>All instances:</strong> Same key pair</p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
-                        <h4>(j) Email Notifications ✅</h4>
-                        <p><strong>Service:</strong> CloudWatch + SNS<br><strong>Events:</strong> Environment &
-                            scaling alerts</p>
-                    </div>
+                style="background: rgba(255,255,255,0.95); padding: 20px; border-radius: 10px; margin-bottom: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <h3 style="margin-top: 0; color: #2c3e50;">📋 Assignment 3 Resources</h3>
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 15px;">
+                    <a href="assign_3_report.php"
+                        style="background: #3498db; color: white; padding: 12px 20px; text-decoration: none; border-radius: 8px; font-weight: bold; transition: background 0.3s ease;">
+                        📄 Full Architecture Report
+                    </a>
+                    <a href="architecture_diagram.php"
+                        style="background: #27ae60; color: white; padding: 12px 20px; text-decoration: none; border-radius: 8px; font-weight: bold; transition: background 0.3s ease;">
+                        🏗️ Enhanced Architecture Diagram
+                    </a>
+                    <a href="health.php"
+                        style="background: #e74c3c; color: white; padding: 12px 20px; text-decoration: none; border-radius: 8px; font-weight: bold; transition: background 0.3s ease;">
+                        ❤️ Health Check
+                    </a>
+                    <a href="phpinfo.php"
+                        style="background: #f39c12; color: white; padding: 12px 20px; text-decoration: none; border-radius: 8px; font-weight: bold; transition: background 0.3s ease;">
+                        🔍 PHP Info
+                    </a>
                 </div>
+                <p style="margin-top: 15px; color: #7f8c8d; font-size: 14px;">
+                    <strong>Student:</strong> Anika Arman (14425754) | <strong>Subject:</strong> 32555 Cloud Computing
+                    and SaaS
+                </p>
             </div>
 
-            <!-- Database Connection Status -->
-            <div class="database-status <?php echo $db_connected ? '' : 'error'; ?>">
-                <h3>
-                    <?php echo $db_connected ? '✅' : '❌'; ?> Database Connection Status
-                </h3>
-                <?php if ($db_connected): ?>
+            <div class="content">
+                <!-- Summary Statistics -->
+                <div class="summary-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">10/10</div>
+                        <div>Requirements Met</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div>Implementation Complete</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">15</div>
+                        <div>AWS Services Used</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">35</div>
+                        <div>Total Marks Available</div>
+                    </div>
+                </div>
+
+                <!-- Assignment Requirements Mapping -->
+                <div
+                    style="background: linear-gradient(45deg, #007bff, #0056b3); color: white; padding: 25px; border-radius: 8px; margin: 25px 0;">
+                    <h2 style="margin-top: 0; text-align: center;">📋 Assignment 3 - Mandatory Requirements Mapping</h2>
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; margin-top: 20px;">
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
+                            <h4>(a) AWS Elastic Beanstalk ✅</h4>
+                            <p><strong>Environment:</strong> lamp-prod-vpc<br><strong>ID:</strong> e-rpyapuixkj</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
+                            <h4>(b) Amazon EC2 ✅</h4>
+                            <p><strong>Instances:</strong> 2 running (t3.micro)<br><strong>AZs:</strong> us-east-1a,
+                                us-east-1b</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
+                            <h4>(c) Custom AMI ✅</h4>
+                            <p><strong>Base:</strong> Amazon Linux 2 + PHP 8.1<br><strong>Platform:</strong> 3.9.2</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
+                            <h4>(d) Custom Security Groups ✅</h4>
+                            <p><strong>HTTP/SSH:</strong> sg-041d4877e9ea0c1ae<br><strong>All instances:</strong> Same
+                                group</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
+                            <h4>(e) Load Balancer ✅</h4>
+                            <p><strong>ELB:</strong> awseb-e-r-AWSEBLoa-ID4G50DGRVZZ<br><strong>Type:</strong> Classic
+                                Load Balancer</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
+                            <h4>(f) Auto Scaling (2-8, Network) ✅</h4>
+                            <p><strong>Min/Max:</strong> 2-8 instances<br><strong>Triggers:</strong> Network Traffic
+                                (60%/30%)</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
+                            <h4>(g) RDS Multi-AZ ✅</h4>
+                            <p><strong>DB:</strong> lamp-app-db (MySQL 8.0)<br><strong>Multi-AZ:</strong> us-east-1a/1b
+                            </p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
+                            <h4>(h) Custom VPC (2+ subnets) ✅</h4>
+                            <p><strong>VPC:</strong> vpc-0164bd99719cccfbd<br><strong>Public Subnets:</strong> 2 in
+                                different AZs</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
+                            <h4>(i) Custom Key Pairs ✅</h4>
+                            <p><strong>Key:</strong> lamp-app-key<br><strong>All instances:</strong> Same key pair</p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 5px;">
+                            <h4>(j) Email Notifications ✅</h4>
+                            <p><strong>Service:</strong> CloudWatch + SNS<br><strong>Events:</strong> Environment &
+                                scaling alerts</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Database Connection Status -->
+                <div class="database-status <?php echo $db_connected ? '' : 'error'; ?>">
+                    <h3>
+                        <?php echo $db_connected ? '✅' : '❌'; ?> Database Connection Status
+                    </h3>
+                    <?php if ($db_connected): ?>
                     <p><strong>Status:</strong> Connected Successfully!</p>
                     <p><strong>Database:</strong> <?php echo $db_info['db_name']; ?> | <strong>Version:</strong>
                         <?php echo $db_info['version']; ?></p>
                     <p><strong>User:</strong> <?php echo $db_info['user']; ?> | <strong>Server Time:</strong>
-                        <?php echo $db_info['current_time']; ?></p>
-                <?php else: ?>
+                        <?php echo $db_info['server_time']; ?></p>
+                    <?php else: ?>
                     <p><strong>Status:</strong> Connection Failed</p>
                     <p><strong>Error:</strong> <?php echo htmlspecialchars($db_error); ?></p>
-                <?php endif; ?>
-            </div>
+                    <?php endif; ?>
+                </div>
 
-            <!-- Mandatory Requirements -->
-            <h2>📋 Mandatory Requirements Implementation</h2>
-            <div class="requirements-grid">
-                <?php foreach ($requirements as $req_key => $requirement): ?>
+                <!-- Mandatory Requirements -->
+                <h2>📋 Mandatory Requirements Implementation</h2>
+                <div class="requirements-grid">
+                    <?php foreach ($requirements as $req_key => $requirement): ?>
                     <div
                         class="requirement-card <?php echo $requirement['status'] === 'implemented' ? '' : 'not-implemented'; ?>">
                         <h3>
@@ -588,32 +586,32 @@ $additional_services = [
                         </h3>
                         <table class="details-table">
                             <?php foreach ($requirement['details'] as $key => $value): ?>
-                                <tr>
-                                    <th><?php echo $key; ?></th>
-                                    <td><?php echo htmlspecialchars($value); ?></td>
-                                </tr>
+                            <tr>
+                                <th><?php echo $key; ?></th>
+                                <td><?php echo htmlspecialchars($value); ?></td>
+                            </tr>
                             <?php endforeach; ?>
                         </table>
                     </div>
-                <?php endforeach; ?>
-            </div>
+                    <?php endforeach; ?>
+                </div>
 
-            <!-- Additional AWS Services -->
-            <div class="additional-services">
-                <h3>🔧 Additional AWS Services Supporting the Architecture</h3>
-                <div class="services-grid">
-                    <?php foreach ($additional_services as $service): ?>
+                <!-- Additional AWS Services -->
+                <div class="additional-services">
+                    <h3>🔧 Additional AWS Services Supporting the Architecture</h3>
+                    <div class="services-grid">
+                        <?php foreach ($additional_services as $service): ?>
                         <div class="service-item">
                             <h4><?php echo $service['name']; ?></h4>
                             <p><strong>Purpose:</strong> <?php echo $service['purpose']; ?></p>
                             <p><small><?php echo $service['details']; ?></small></p>
                         </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Database Test Records -->
-            <?php if ($db_connected && !empty($recent_records)): ?>
+                <!-- Database Test Records -->
+                <?php if ($db_connected && !empty($recent_records)): ?>
                 <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
                     <h3>🗄️ Database Test Records (Last 5)</h3>
                     <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
@@ -626,50 +624,50 @@ $additional_services = [
                         </thead>
                         <tbody>
                             <?php foreach ($recent_records as $record): ?>
-                                <tr style="border-bottom: 1px solid #dee2e6;">
-                                    <td style="padding: 8px;"><?php echo $record['id']; ?></td>
-                                    <td style="padding: 8px;"><?php echo htmlspecialchars($record['message']); ?></td>
-                                    <td style="padding: 8px;"><?php echo $record['created_at']; ?></td>
-                                </tr>
+                            <tr style="border-bottom: 1px solid #dee2e6;">
+                                <td style="padding: 8px;"><?php echo $record['id']; ?></td>
+                                <td style="padding: 8px;"><?php echo htmlspecialchars($record['message']); ?></td>
+                                <td style="padding: 8px;"><?php echo $record['created_at']; ?></td>
+                            </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
-            <?php endif; ?>
+                <?php endif; ?>
 
-            <!-- Architecture Compliance -->
-            <div
-                style="background: linear-gradient(45deg, #28a745, #20c997); color: white; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                <h3>🏗️ Architecture Compliance Summary</h3>
+                <!-- Architecture Compliance -->
                 <div
-                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 15px;">
-                    <div>
-                        <h4>✅ Scalability</h4>
-                        <p>Auto Scaling 2-8 instances with network-based triggers</p>
-                    </div>
-                    <div>
-                        <h4>✅ High Availability</h4>
-                        <p>Multi-AZ deployment across us-east-1a and us-east-1b</p>
-                    </div>
-                    <div>
-                        <h4>✅ Fault Tolerance</h4>
-                        <p>Load balancer, Multi-AZ RDS, redundant subnets</p>
-                    </div>
-                    <div>
-                        <h4>✅ Disaster Recovery</h4>
-                        <p>Multi-AZ RDS with automated backups and failover</p>
+                    style="background: linear-gradient(45deg, #28a745, #20c997); color: white; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <h3>🏗️ Architecture Compliance Summary</h3>
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 15px;">
+                        <div>
+                            <h4>✅ Scalability</h4>
+                            <p>Auto Scaling 2-8 instances with network-based triggers</p>
+                        </div>
+                        <div>
+                            <h4>✅ High Availability</h4>
+                            <p>Multi-AZ deployment across us-east-1a and us-east-1b</p>
+                        </div>
+                        <div>
+                            <h4>✅ Fault Tolerance</h4>
+                            <p>Load balancer, Multi-AZ RDS, redundant subnets</p>
+                        </div>
+                        <div>
+                            <h4>✅ Disaster Recovery</h4>
+                            <p>Multi-AZ RDS with automated backups and failover</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="footer">
-            <p>&copy; 2025 Assignment 3 - AWS LAMP Stack Deployment</p>
-            <p><strong>All Mandatory Requirements Successfully Implemented</strong></p>
-            <p><strong>Page generated:</strong> <?php echo date('Y-m-d H:i:s'); ?> UTC | <strong>Instance:</strong>
-                <?php echo $instance_id; ?></p>
+            <div class="footer">
+                <p>&copy; 2025 Assignment 3 - AWS LAMP Stack Deployment</p>
+                <p><strong>All Mandatory Requirements Successfully Implemented</strong></p>
+                <p><strong>Page generated:</strong> <?php echo date('Y-m-d H:i:s'); ?> UTC | <strong>Instance:</strong>
+                    <?php echo $instance_id; ?></p>
+            </div>
         </div>
-    </div>
-</body>
+    </body>
 
 </html>

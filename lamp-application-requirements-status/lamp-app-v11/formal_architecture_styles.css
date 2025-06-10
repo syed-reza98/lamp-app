@@ -1,0 +1,393 @@
+/**
+ * Formal Report Architecture Styles
+ * Clean, professional styling for academic submission
+ */
+
+/* Reset and override any existing architecture styles for formal presentation */
+.architecture-container {
+    background: white !important;
+    border: 2px solid #34495e !important;
+    border-radius: 8px !important;
+    padding: 20px !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+    margin: 20px 0 !important;
+    font-family: 'Times New Roman', serif !important;
+}
+
+.architecture-header {
+    background: #f8f9fa !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 6px !important;
+    padding: 20px !important;
+    margin-bottom: 25px !important;
+    text-align: center !important;
+}
+
+.architecture-header h2 {
+    color: #2c3e50 !important;
+    font-size: 18pt !important;
+    margin-bottom: 10px !important;
+    font-weight: bold !important;
+}
+
+.architecture-header p {
+    color: #34495e !important;
+    font-size: 12pt !important;
+    margin: 5px 0 !important;
+}
+
+/* Clean service boxes for formal presentation */
+.service-box {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+    border: 2px solid #3498db !important;
+    border-radius: 8px !important;
+    padding: 15px !important;
+    margin: 10px !important;
+    color: #2c3e50 !important;
+    text-align: center !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    transition: none !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+.service-box:hover {
+    border-color: #2980b9 !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15) !important;
+    transform: none !important;
+}
+
+.service-header {
+    font-weight: bold !important;
+    font-size: 12pt !important;
+    color: #2c3e50 !important;
+    margin-bottom: 8px !important;
+}
+
+.service-details {
+    font-size: 10pt !important;
+    color: #34495e !important;
+    line-height: 1.4 !important;
+}
+
+.service-details span {
+    display: block !important;
+    margin: 3px 0 !important;
+    color: #555 !important;
+}
+
+/* VPC container styling */
+.vpc-container {
+    background: white !important;
+    border: 3px dashed #3498db !important;
+    border-radius: 10px !important;
+    padding: 20px !important;
+    margin: 20px 0 !important;
+    position: relative !important;
+}
+
+.vpc-header {
+    background: #3498db !important;
+    color: white !important;
+    padding: 10px 15px !important;
+    border-radius: 5px !important;
+    text-align: center !important;
+    font-weight: bold !important;
+    margin-bottom: 20px !important;
+}
+
+/* Availability zones */
+.az-container {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
+    margin: 20px 0 !important;
+}
+
+.availability-zone {
+    background: #f8f9fa !important;
+    border: 2px solid #27ae60 !important;
+    border-radius: 8px !important;
+    padding: 15px !important;
+}
+
+.az-header {
+    background: #27ae60 !important;
+    color: white !important;
+    padding: 8px 12px !important;
+    border-radius: 4px !important;
+    text-align: center !important;
+    font-weight: bold !important;
+    margin-bottom: 15px !important;
+    font-size: 11pt !important;
+}
+
+/* Subnet styling */
+.subnet {
+    background: white !important;
+    border: 1px solid #95a5a6 !important;
+    border-radius: 6px !important;
+    padding: 12px !important;
+    margin: 10px 0 !important;
+}
+
+.subnet-header {
+    font-weight: bold !important;
+    color: #2c3e50 !important;
+    margin-bottom: 8px !important;
+    font-size: 11pt !important;
+}
+
+.subnet-cidr {
+    font-size: 9pt !important;
+    color: #7f8c8d !important;
+    font-style: italic !important;
+}
+
+/* EC2 instances */
+.ec2-instance {
+    background: linear-gradient(135deg, #fff5f5 0%, #ffeaea 100%) !important;
+    border: 2px solid #e74c3c !important;
+    border-radius: 6px !important;
+    padding: 12px !important;
+    margin: 8px 0 !important;
+}
+
+.instance-header {
+    font-weight: bold !important;
+    color: #e74c3c !important;
+    margin-bottom: 6px !important;
+    font-size: 11pt !important;
+}
+
+.instance-details span {
+    font-size: 9pt !important;
+    color: #555 !important;
+    display: block !important;
+    margin: 2px 0 !important;
+}
+
+/* RDS styling */
+.rds-primary,
+.rds-standby {
+    background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%) !important;
+    border: 2px solid #9b59b6 !important;
+    border-radius: 6px !important;
+    padding: 12px !important;
+    margin: 8px 0 !important;
+}
+
+/* Load balancer */
+.load-balancer {
+    background: linear-gradient(135deg, #f0fff4 0%, #e6ffe6 100%) !important;
+    border: 2px solid #27ae60 !important;
+}
+
+/* Auto scaling */
+.auto-scaling {
+    background: linear-gradient(135deg, #fffaf0 0%, #ffeaa7 100%) !important;
+    border: 2px solid #f39c12 !important;
+}
+
+/* Requirement tags */
+.req-tag {
+    background: #e74c3c !important;
+    color: white !important;
+    padding: 2px 6px !important;
+    border-radius: 3px !important;
+    font-size: 9pt !important;
+    font-weight: bold !important;
+}
+
+/* Supporting services */
+.supporting-services {
+    background: #f8f9fa !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 8px !important;
+    padding: 15px !important;
+    margin: 20px 0 !important;
+}
+
+.support-header {
+    text-align: center !important;
+    font-weight: bold !important;
+    color: #2c3e50 !important;
+    margin-bottom: 15px !important;
+    font-size: 14pt !important;
+}
+
+.support-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+    gap: 10px !important;
+}
+
+.support-service {
+    background: white !important;
+    border: 1px solid #bdc3c7 !important;
+    border-radius: 5px !important;
+    padding: 10px !important;
+    text-align: center !important;
+}
+
+.support-title {
+    font-weight: bold !important;
+    color: #2c3e50 !important;
+    font-size: 10pt !important;
+}
+
+.support-desc {
+    font-size: 9pt !important;
+    color: #7f8c8d !important;
+    margin-top: 5px !important;
+}
+
+/* Requirements summary */
+.requirements-summary {
+    background: #f8f9fa !important;
+    border: 2px solid #2c3e50 !important;
+    border-radius: 8px !important;
+    padding: 20px !important;
+    margin: 20px 0 !important;
+}
+
+.req-header {
+    text-align: center !important;
+    font-weight: bold !important;
+    color: #2c3e50 !important;
+    margin-bottom: 15px !important;
+    font-size: 14pt !important;
+}
+
+.req-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+    gap: 10px !important;
+}
+
+.req-item {
+    background: white !important;
+    border: 1px solid #bdc3c7 !important;
+    border-radius: 5px !important;
+    padding: 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+.req-letter {
+    background: #3498db !important;
+    color: white !important;
+    width: 24px !important;
+    height: 24px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-weight: bold !important;
+    font-size: 10pt !important;
+}
+
+.req-name {
+    flex: 1 !important;
+    font-weight: bold !important;
+    color: #2c3e50 !important;
+    font-size: 10pt !important;
+}
+
+.req-status {
+    background: #27ae60 !important;
+    color: white !important;
+    padding: 3px 8px !important;
+    border-radius: 4px !important;
+    font-size: 9pt !important;
+    font-weight: bold !important;
+}
+
+/* Benefits section */
+.benefits-section {
+    background: #f8f9fa !important;
+    border: 2px solid #34495e !important;
+    border-radius: 8px !important;
+    padding: 20px !important;
+    margin: 20px 0 !important;
+}
+
+.benefits-header {
+    text-align: center !important;
+    font-weight: bold !important;
+    color: #2c3e50 !important;
+    margin-bottom: 15px !important;
+    font-size: 14pt !important;
+}
+
+.benefits-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+    gap: 15px !important;
+}
+
+.benefit {
+    background: white !important;
+    border-left: 4px solid #e74c3c !important;
+    padding: 15px !important;
+    border-radius: 0 5px 5px 0 !important;
+}
+
+.benefit-title {
+    font-weight: bold !important;
+    color: #e74c3c !important;
+    margin-bottom: 8px !important;
+    font-size: 12pt !important;
+}
+
+.benefit-desc {
+    color: #555 !important;
+    font-size: 10pt !important;
+    line-height: 1.4 !important;
+}
+
+/* Remove all animations and transitions for formal presentation */
+* {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+}
+
+/* Print optimizations */
+@media print {
+    .architecture-container {
+        page-break-inside: avoid !important;
+        box-shadow: none !important;
+        border: 2px solid #000 !important;
+    }
+    
+    .service-box {
+        page-break-inside: avoid !important;
+        border: 1px solid #000 !important;
+        background: white !important;
+    }
+    
+    .az-container {
+        page-break-inside: avoid !important;
+    }
+    
+    .requirements-summary {
+        page-break-inside: avoid !important;
+    }
+}
+
+/* Responsive adjustments for formal report */
+@media screen and (max-width: 768px) {
+    .az-container {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .req-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .support-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important;
+    }
+}

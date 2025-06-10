@@ -1,0 +1,508 @@
+/**
+ * Optimized CSS for AWS LAMP Stack Architecture Report
+ * Student: Anika Arman | ID: 14425754
+ * Streamlined design with reduced redundancy and improved performance
+ */
+
+/* ========== CSS VARIABLES ========== */
+:root {
+    /* AWS Brand Colors */
+    --aws-orange: #FF9900;
+    --aws-blue: #146EB4;
+    --aws-dark-blue: #0F2027;
+    
+    /* Status Colors */
+    --status-healthy: #28a745;
+    --status-warning: #ffc107;
+    --status-error: #dc3545;
+    --status-info: #17a2b8;
+    
+    /* Base Colors */
+    --primary: #3498db;
+    --secondary: #2c3e50;
+    --success: #27ae60;
+    --white: #ffffff;
+    --light: #f8f9fa;
+    --dark: #343a40;
+    --text-primary: #2c3e50;
+    --text-secondary: #7f8c8d;
+    --text-muted: #95a5a6;
+    
+    /* Background Gradients */
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --aws-gradient: linear-gradient(135deg, var(--aws-dark-blue) 0%, var(--aws-blue) 100%);
+    
+    /* Spacing */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-xxl: 3rem;
+    
+    /* Borders & Shadows */
+    --radius: 0.5rem;
+    --radius-lg: 1rem;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+    
+    /* Typography */
+    --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    --font-mono: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    --transition: 0.3s ease;
+}
+
+/* ========== RESET & BASE ========== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    line-height: 1.6;
+    color: var(--text-primary);
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ========== LAYOUT ========== */
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 0 var(--space-lg);
+    }
+}
+
+/* ========== HEADER ========== */
+.header {
+    background: var(--aws-gradient);
+    color: var(--white);
+    padding: var(--space-xxl) 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    pointer-events: none;
+}
+
+.header-content {
+    position: relative;
+    z-index: 1;
+}
+
+.header h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    margin-bottom: var(--space-lg);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.header-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+    font-size: 0.875rem;
+}
+
+@media (min-width: 768px) {
+    .header-meta {
+        flex-direction: row;
+        justify-content: center;
+        gap: var(--space-lg);
+    }
+}
+
+.student-info,
+.timestamp {
+    background: rgba(255, 255, 255, 0.1);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.header-description {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    opacity: 0.9;
+}
+
+/* ========== SECTIONS ========== */
+.section {
+    padding: var(--space-xxl) 0;
+}
+
+.section:nth-child(even) {
+    background: var(--light);
+}
+
+.section:nth-child(odd) {
+    background: var(--white);
+}
+
+.section h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: var(--space-xl);
+    color: var(--text-primary);
+}
+
+.section-description {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--space-xl);
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* ========== GRIDS ========== */
+.grid {
+    display: grid;
+    gap: var(--space-lg);
+}
+
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.grid-4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+/* ========== CARDS ========== */
+.card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow);
+    transition: all var(--transition);
+    border-left: 4px solid var(--primary);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-md);
+    display: flex;
+    align-items: center;
+    min-width: 50px;
+}
+
+.card-content h3 {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-sm);
+    color: var(--text-primary);
+}
+
+.metric-value,
+.status-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: var(--space-sm);
+    font-family: var(--font-mono);
+}
+
+.card-content small {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Status Card Variants */
+.status-card.status-healthy { border-left-color: var(--status-healthy); }
+.status-card.status-warning { border-left-color: var(--status-warning); }
+.status-card.status-error { border-left-color: var(--status-error); }
+
+/* ========== REQUIREMENT CARDS ========== */
+.requirement-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+}
+
+.requirement-letter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: var(--aws-orange);
+    color: var(--white);
+    font-size: 1.25rem;
+    font-weight: 700;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.requirement-title h3 {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-xs);
+}
+
+.status-badge {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: rgba(40, 167, 69, 0.1);
+    color: var(--status-healthy);
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-item strong {
+    color: var(--text-primary);
+    font-weight: 600;
+    min-width: 120px;
+}
+
+.detail-item span {
+    color: var(--text-secondary);
+    text-align: right;
+    flex: 1;
+    margin-left: var(--space-sm);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+}
+
+/* ========== ARCHITECTURE DIAGRAM ========== */
+.architecture-container {
+    background: var(--light);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow);
+    overflow-x: auto;
+}
+
+.architecture-header {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+}
+
+.architecture-header h2 {
+    font-size: 1.875rem;
+    margin-bottom: var(--space-md);
+}
+
+.architecture-diagram {
+    min-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+}
+
+.layer {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-lg);
+    align-items: center;
+}
+
+.service-box {
+    background: var(--white);
+    border: 2px solid var(--primary);
+    border-radius: var(--radius);
+    padding: var(--space-lg);
+    text-align: center;
+    min-width: 150px;
+    box-shadow: var(--shadow);
+    transition: all var(--transition);
+}
+
+.service-box:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+.service-header {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-sm);
+}
+
+.service-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.feature {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.req-tag {
+    background: var(--aws-orange);
+    color: var(--white);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* VPC Container */
+.vpc-container {
+    background: rgba(70, 130, 180, 0.1);
+    border: 2px dashed var(--aws-blue);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    margin: var(--space-lg) 0;
+}
+
+.vpc-header {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    color: var(--aws-blue);
+    font-weight: 600;
+}
+
+.az-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-xl);
+}
+
+.availability-zone {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--aws-blue);
+    border-radius: var(--radius);
+    padding: var(--space-lg);
+}
+
+.az-header {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    color: var(--aws-blue);
+    font-weight: 600;
+}
+
+.subnet {
+    background: rgba(34, 139, 34, 0.1);
+    border: 1px solid #228b22;
+    border-radius: var(--radius);
+    padding: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.subnet-header {
+    font-weight: 600;
+    color: #228b22;
+    margin-bottom: var(--space-xs);
+}
+
+.ec2-instance {
+    background: var(--white);
+    border: 1px solid var(--primary);
+    border-radius: var(--radius);
+    padding: var(--space-sm);
+    text-align: center;
+}
+
+.instance-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.instance-details span {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 var(--space-sm);
+    }
+    
+    .header h1 {
+        font-size: 1.875rem;
+    }
+    
+    .section {
+        padding: var(--space-xl) 0;
+    }
+    
+    .card {
+        padding: var(--space-lg);
+    }
+    
+    .requirement-header {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--space-md);
+    }
+    
+    .detail-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-xs);
+    }
+    
+    .detail-item span {
+        text-align: left;
+        margin-left: 0;
+    }
+}
+
+/* ========== UTILITIES ========== */
+.text-center { text-align: center; }
+.text-muted { color: var(--text-muted); }
+.mb-lg { margin-bottom: var(--space-lg); }
+.mt-lg { margin-top: var(--space-lg); }
+
+/* Performance optimizations */
+.card, .service-box {
+    will-change: transform;
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

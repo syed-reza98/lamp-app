@@ -1,7 +1,0 @@
-[
-    {
-        "Namespace": "aws:elasticbeanstalk:healthreporting:system",
-        "OptionName": "SystemType",
-        "Value": "basic"
-    }
-]
