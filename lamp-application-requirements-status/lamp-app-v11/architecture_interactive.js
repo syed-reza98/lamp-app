@@ -93,15 +93,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Add detail popup effect
                 const detail = document.createElement('div');
                 detail.className = 'req-detail-popup';
-                detail.innerHTML = `
-                    <div class="popup-content">
-                        <h4>Requirement ${this.querySelector('.req-letter')?.textContent ?? ''}</h4>
-                        <p><strong>Service:</strong> ${this.querySelector('.req-name')?.textContent ?? ''}</p>
-                        <p><strong>Status:</strong> ${this.querySelector('.req-status')?.textContent ?? ''}</p>
-                        <p><strong>Implementation:</strong> Fully deployed and operational in AWS environment</p>
-                        <button class="close-popup">×</button>
-                    </div>
-                `;
+                // Utility function to escape HTML special characters
+                const escapeHTML = (str) => str.replace(/[&<>"']/g, (char) => ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                   "'": '&#39;',
+               }[char]));
+
+               detail.innerHTML = `
+                   <div class="popup-content">
+                       <h4>Requirement ${escapeHTML(this.querySelector('.req-letter')?.textContent ?? '')}</h4>
+                       <p><strong>Service:</strong> ${escapeHTML(this.querySelector('.req-name')?.textContent ?? '')}</p>
+                       <p><strong>Status:</strong> ${escapeHTML(this.querySelector('.req-status')?.textContent ?? '')}</p>
+                       <p><strong>Implementation:</strong> Fully deployed and operational in AWS environment</p>
+                       <button class="close-popup">×</button>
+                   </div>
+               `;
                 detail.style.cssText = `
                     position: fixed;
                     top: 50%;
